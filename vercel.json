@@ -7,15 +7,13 @@
       "config": { "includeFiles": ["dist/**"] }
     }
   ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/src" }],
   "routes": [
     {
       "src": "/(.*)",
       "dest": "dist/index.js",
-      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-        
-    },
-    {
-        "rewrites": [{ "source": "/(.*)", "destination": "/src" }]
-    }
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]        
+    }    
   ]
+     
 }
