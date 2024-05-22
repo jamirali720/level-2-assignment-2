@@ -1,8 +1,7 @@
-import {Schema} from "mongoose";
 
 export type TOrder ={
     email: string;
-    productId: Schema.Types.ObjectId;
+    productId: string;
     quantity:number;
     price: number;
 }

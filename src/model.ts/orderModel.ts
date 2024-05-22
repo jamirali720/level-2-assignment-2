@@ -10,7 +10,7 @@ const orderSchema = new Schema<TOrder>({
         required: true,
     }, 
     productId: {
-        type: Schema.Types.ObjectId, 
+        type: String, 
         required: true
     }, 
     quantity: {
