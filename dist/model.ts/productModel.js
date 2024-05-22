@@ -4,48 +4,48 @@ const mongoose_1 = require("mongoose");
 const productSchema = new mongoose_1.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     description: {
         type: String,
-        required: true
+        required: true,
     },
     price: {
         type: Number,
-        required: true
+        required: true,
     },
     category: {
         type: String,
-        required: true
+        required: true,
     },
     tags: [
         {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     ],
     variants: [
         {
             type: {
                 type: String,
-                required: true
+                required: true,
             },
             value: {
-                type: Boolean,
-                required: true
-            }
-        }
+                type: String,
+                required: true,
+            },
+        },
     ],
     inventory: {
         quantity: {
             type: Number,
-            required: true
+            required: true,
         },
         inStock: {
             type: Boolean,
-            required: true
-        }
-    }
+            required: true,
+        },
+    },
 });
 const ProductModel = (0, mongoose_1.model)("Product", productSchema);
 exports.default = ProductModel;

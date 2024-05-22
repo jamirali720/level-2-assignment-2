@@ -28,8 +28,6 @@ class ProductController {
           data: result,
         });
       }
-
-      
     } catch (error: any) {
       res.status(500).json({
         success: false,
@@ -42,9 +40,9 @@ class ProductController {
   // get all products from database
   handleGetProducts = async (req: Request, res: Response) => {
     // get query value , otherwise initial value empty string
-    const query  = req.query.searchTerm  || ""   
+    const query = req.query.searchTerm || "";
     try {
-      const products = await services.getProducts(query as string | undefined) ;
+      const products = await services.getProducts(query as string | undefined);
       if (!products) {
         return res.status(404).json({ message: "Products not found" });
       }
@@ -86,12 +84,12 @@ class ProductController {
   handleUpdateProductById = async (req: Request, res: Response) => {
     const { productId } = req.params;
     const updatedData = req.body;
-    
+
     try {
       const product = await services.updateProductById(productId, updatedData);
       return successResponse(res, {
         message: "Product updated successfully",
-        data: product
+        data: product,
       });
     } catch (error: any) {
       res.status(500).json({

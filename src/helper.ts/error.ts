@@ -1,4 +1,4 @@
-import {Response } from "express";
+import { Response } from "express";
 
 export const handleError = (err: unknown, res: Response) => {
   let message;
