@@ -3,9 +3,8 @@ import { productController } from "../controller.ts/productController";
 
 const productRouter = express.Router();
 
-productRouter
-  .route("/")
-  .post(productController.handleCreateNewProduct);
+productRouter.route("/").post(productController.handleCreateNewProduct);
+productRouter.route("/").get(productController.handleGetProducts);
 
 productRouter
   .route("/:productId")

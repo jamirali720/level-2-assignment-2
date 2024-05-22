@@ -32,7 +32,7 @@ const productSchemaValidation = z.object({
       value: z.string({
         required_error: "Variant value is required",
         invalid_type_error: "Variant value must be string",
-      })
+      }),
     }),
   ),
   inventory: z.object({

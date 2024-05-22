@@ -5,24 +5,31 @@ import productSchemaValidation from "../validation.ts/productValidationWithZod";
 
 class ProductController {
   //create new product and save to database
-  handleCreateNewProduct = async (req: Request, res: Response) => {   
+  handleCreateNewProduct = async (req: Request, res: Response) => {
     try {
-     const validate =  productSchemaValidation.safeParse(req.body)
-    
-     if (typeof validate.error !== "undefined" &&  validate.error.name === 'ZodError') {
-        const errorLists = validate.error.issues.map((err) => err.message);
+      const validation = productSchemaValidation.safeParse(req.body);
+
+      if (
+        typeof validation.error !== "undefined" &&
+        validation.error.name === "ZodError"
+      ) {
+        const errorLists = validation.error.issues.map((err) => err.message);
         return res.status(500).json({
           success: false,
-          message: 'product creation failed' + errorLists,
-          error: validate.error,
+          message: "product creation failed" + errorLists,
+          error: validation.error,
         });
       }
-      const result = await services.createNewProduct(req.body);
-     
-      return successResponse(res, {
-        message: "Product created successfully",
-        data: result,
-      });
+      if (validation.success) {
+        const result = await services.createNewProduct(validation.data);
+
+        return successResponse(res, {
+          message: "Product created successfully",
+          data: result,
+        });
+      }
+
+      
     } catch (error: any) {
       res.status(500).json({
         success: false,
@@ -33,12 +40,13 @@ class ProductController {
   };
 
   // get all products from database
-  handleGetAllProducts = async (req: Request, res: Response) => {
-    const query =  req.query
+  handleGetProducts = async (req: Request, res: Response) => {
+    // get query value , otherwise initial value empty string
+    const query  = req.query.searchTerm  || ""   
     try {
-      const products = await services.getAllProducts(query);
-      if(!products) {
-        return res.status(404).json({message: "Products not found"})
+      const products = await services.getProducts(query as string | undefined) ;
+      if (!products) {
+        return res.status(404).json({ message: "Products not found" });
       }
       return successResponse(res, {
         message: "Products fetched successfully!",
@@ -58,8 +66,8 @@ class ProductController {
     const { productId } = req.params;
     try {
       const product = await services.getSingleProductById(productId);
-      if(!product){
-        return res.status(404).json({message: "Product not found"})
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
       }
       return successResponse(res, {
         message: "Product fetched successfully",
@@ -74,16 +82,16 @@ class ProductController {
     }
   };
 
-  // update a product by ID 
+  // update a product by ID
   handleUpdateProductById = async (req: Request, res: Response) => {
     const { productId } = req.params;
     const updatedData = req.body;
-    console.log(updatedData);
+    
     try {
-      const product = await services.updateProductById (productId, updatedData);
+      const product = await services.updateProductById(productId, updatedData);
       return successResponse(res, {
         message: "Product updated successfully",
-        data: product,
+        data: product
       });
     } catch (error: any) {
       res.status(500).json({
@@ -94,17 +102,14 @@ class ProductController {
     }
   };
 
-
- 
-
- // delete a product from database by product ID
+  // delete a product from database by product ID
   handleDeleteProductById = async (req: Request, res: Response) => {
     const { productId } = req.params;
     try {
       await services.deleteProductById(productId);
       return successResponse(res, {
         message: "Product deleted successfully",
-        data:null
+        data: null,
       });
     } catch (error: any) {
       res.status(500).json({
