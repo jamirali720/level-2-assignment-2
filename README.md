@@ -2,23 +2,23 @@
 
 
 
-#### 1. Express Typescript project
+### 1. Express Typescript project
 
  *  Express Typescript project's code has been deployed github: [Go to the github](https://github.com/jamirali720/level-2-assignment-2) 
  *  Express Typescript project Live server has been deployed in vercel: [Go to vercel](https://level-2-assignment-2-github.vercel.app) 
 
 
-#### 2. How to run the application locally
+### 2. How to run the application locally
 
 Firstly to run the application have to install dependency :   
 * Run command in CLI -  npm install.   
 * all dependency will be  install.
 * this project has been validated using zod.
 
-#### 3. Create new product 
+### 3. Create new product 
 I have created a route  **myServerLink/api/products**: in which I can create new product.
 
-##### 4. Retrieve a List of All Products
+### 4. Retrieve a List of All Products
  1. I have create a route  **myServerLink/api/products**: in which I can get all products.   
  2. I can get products by searching with searchTerm : such as **myServerLink/api/products?searchTerm=iphone**   
  3. If there is no searchTerm, return all products,   
@@ -26,10 +26,10 @@ I have created a route  **myServerLink/api/products**: in which I can create new
     - products searched by name.  
     - products searched by description.
     - products searched by category.
-#### 5. Retrieve a Specific Product by ID:
+### 5. Retrieve a Specific Product by ID:
 1. I have created a route  **myServerLink/api/products:productId** . productId as a params 
 2. Product will be returned as specific productId. 
-#### 6. Update Product by ID:
+### 6. Update Product by ID:
 1. I have created a route  **myServerLink/api/products:productId** . productId as a params 
 2. product will be updated as specific productId.
 
@@ -63,7 +63,7 @@ I have created a route  **myServerLink/api/products**: in which I can create new
  ```  
 
 
-#### 7. Partial Update product
+### 7. Partial Update product
     *  If a product  has to update partial properties , then: product partial properties will be provided like this. to update inventory  
 
 ```javascript
@@ -74,11 +74,11 @@ I have created a route  **myServerLink/api/products**: in which I can create new
 ``` 
 
 
-#### 8. Delete a Product : 
+### 8. Delete a Product : 
  * I have created a route  **myServerLink/api/products:productId**. productId has been received as a params 
  * Then product will be deleted from database permanently 
 
-#### 9. Create a New Order:
+### 9. Create a New Order:
  * I have created a route  **myServerLink/api/orders**.
  * In which I can create new order.
  * While creating  new order, order quantity will check with the product quantity. if order quantity greater then product quantity, then return error message :Insufficient quantity available in inventory. Otherwise new order will be proceeded. 
@@ -86,14 +86,14 @@ I have created a route  **myServerLink/api/products**: in which I can create new
 
 
 
-#### 10. Retrieve All Orders and retrieve Orders by User Email:
+### 10. Retrieve All Orders and retrieve Orders by User Email:
 
  * I have created a route  myServerLink/api/orders.
  * In which I can get all orders. 
  * I can get orders by query  such as **myServerLink/api/orders?email=level2@programming-hero.com**   
  * If there is no query email, return all orders. 
 
-#### 11. Error Handling: 
+### 11. Error Handling: 
  * If product quantity less than order quantity, then throw error **message: "Insufficient quantity available in inventory"** 
  * If Product not found by specific Id, then throw error **message : product not found**
  * If order not found by specific user email, then throw error **message : orders not found**
