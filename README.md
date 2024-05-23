@@ -33,7 +33,7 @@ I have created a route  **myServerLink/api/products**: in which I can create new
 1. I have created a route  **myServerLink/api/products:productId** . productId as a params 
 2. product will be updated as specific productId.
 
- * If a product  has to update all properties , then: product all properties will be provided like this. 
+ * If a product  has to update all properties , then: product all properties will be provided from client sites like this. 
 
  ```javascript
     
@@ -64,7 +64,7 @@ I have created a route  **myServerLink/api/products**: in which I can create new
 
 
 ### 7. Partial Update product
-    *  If a product  has to update partial properties , then: product partial properties will be provided like this. to update inventory  
+* If a product  has to update partial properties ,     then: product partial properties will be provided like this. to update inventory  
 
 ```javascript
     inventory: {
