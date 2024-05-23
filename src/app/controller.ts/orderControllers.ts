@@ -55,10 +55,11 @@ class OrderController {
           });
         }
       }
-    } catch (error: any) {
+    } catch (error) {
+      const err = error as Error;
       return res.status(500).json({
         success: false,
-        error: error.message,
+        error: err.message,
       });
     }
   };
@@ -78,10 +79,11 @@ class OrderController {
         message: "Orders fetched successfully!",
         data: orders,
       });
-    } catch (error: any) {
+    } catch (error) {
+      const err = error as Error;
       return res.status(500).json({
         success: false,
-        error: error.message,
+        error: err.message,
       });
     }
   };

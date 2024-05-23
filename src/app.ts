@@ -1,7 +1,6 @@
-import express, { NextFunction, Application, Request, Response } from "express";
-import productRouter from "./routes.ts/productRoutes";
-import { handleError } from "./helper.ts/error";
-import orderRouter from "./routes.ts/orderRoutes";
+import express, { Application, Request, Response } from "express";
+import productRouter from "./app/routes.ts/productRoutes";
+import orderRouter from "./app/routes.ts/orderRoutes";
 
 const app: Application = express();
 
@@ -17,8 +16,21 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 //error handler
-app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
-  handleError(err, res);
+app.use((err:Error, req:Request, res:Response) => {
+      let message;
+      if (err instanceof Error) {
+        message = err.message;
+      } else if (typeof err === "string") {
+        message = err;
+      } else {
+        message = "Internal Server Error";
+
+      }
+
+      res.status(500).json({
+        success: false,
+        message,
+      });
 });
 
 //not found route

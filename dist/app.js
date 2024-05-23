@@ -4,9 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const productRoutes_1 = __importDefault(require("./routes.ts/productRoutes"));
-const error_1 = require("./helper.ts/error");
-const orderRoutes_1 = __importDefault(require("./routes.ts/orderRoutes"));
+const productRoutes_1 = __importDefault(require("./app/routes.ts/productRoutes"));
+const orderRoutes_1 = __importDefault(require("./app/routes.ts/orderRoutes"));
 const app = (0, express_1.default)();
 // express built in middleware
 app.use(express_1.default.json());
@@ -18,8 +17,21 @@ app.get("/", (req, res) => {
     res.send("Hello assignment-2 server");
 });
 //error handler
-app.use((err, req, res, next) => {
-    (0, error_1.handleError)(err, res);
+app.use((err, req, res) => {
+    let message;
+    if (err instanceof Error) {
+        message = err.message;
+    }
+    else if (typeof err === "string") {
+        message = err;
+    }
+    else {
+        message = "Internal Server Error";
+    }
+    res.status(500).json({
+        success: false,
+        message,
+    });
 });
 //not found route
 app.use((req, res) => {

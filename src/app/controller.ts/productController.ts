@@ -28,10 +28,11 @@ class ProductController {
           data: result,
         });
       }
-    } catch (error: any) {
+    } catch (error) {
+      const err = error as Error;
       res.status(500).json({
         success: false,
-        message: error.message,
+        message: err.message,
         error,
       });
     }
@@ -43,17 +44,18 @@ class ProductController {
     const query = req.query.searchTerm || "";
     try {
       const products = await services.getProducts(query as string | undefined);
-      if (!products) {
+      if (products.length === 0) {
         return res.status(404).json({ message: "Products not found" });
       }
       return successResponse(res, {
         message: "Products fetched successfully!",
         data: products,
       });
-    } catch (error: any) {
+    } catch (error) {
+      const err = error as Error;
       res.status(500).json({
         success: false,
-        message: error.message,
+        message: err.message,
         error,
       });
     }
@@ -71,10 +73,11 @@ class ProductController {
         message: "Product fetched successfully",
         data: product,
       });
-    } catch (error: any) {
+    } catch (error) {
+      const err = error as Error;
       res.status(500).json({
         success: false,
-        message: error.message,
+        message: err.message,
         error,
       });
     }
@@ -87,14 +90,19 @@ class ProductController {
 
     try {
       const product = await services.updateProductById(productId, updatedData);
+      if (!product) {
+        return res.status(404).json({ message: "Product not updated" });
+      }
+
       return successResponse(res, {
         message: "Product updated successfully",
         data: product,
       });
-    } catch (error: any) {
+    } catch (error) {
+      const err = error as Error;
       res.status(500).json({
         success: false,
-        message: error.message,
+        message: err.message,
         error,
       });
     }
@@ -107,12 +115,13 @@ class ProductController {
       await services.deleteProductById(productId);
       return successResponse(res, {
         message: "Product deleted successfully",
-        data: null,
+        data: "null",
       });
-    } catch (error: any) {
+    } catch (error) {
+      const err = error as Error;
       res.status(500).json({
         success: false,
-        message: error.message,
+        message: err.message,
         error,
       });
     }

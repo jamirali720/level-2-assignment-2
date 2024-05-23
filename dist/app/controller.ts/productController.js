@@ -40,9 +40,10 @@ class ProductController {
                 }
             }
             catch (error) {
+                const err = error;
                 res.status(500).json({
                     success: false,
-                    message: error.message,
+                    message: err.message,
                     error,
                 });
             }
@@ -53,7 +54,7 @@ class ProductController {
             const query = req.query.searchTerm || "";
             try {
                 const products = yield productServices_1.services.getProducts(query);
-                if (!products) {
+                if (products.length === 0) {
                     return res.status(404).json({ message: "Products not found" });
                 }
                 return (0, successResponse_1.successResponse)(res, {
@@ -62,9 +63,10 @@ class ProductController {
                 });
             }
             catch (error) {
+                const err = error;
                 res.status(500).json({
                     success: false,
-                    message: error.message,
+                    message: err.message,
                     error,
                 });
             }
@@ -83,9 +85,10 @@ class ProductController {
                 });
             }
             catch (error) {
+                const err = error;
                 res.status(500).json({
                     success: false,
-                    message: error.message,
+                    message: err.message,
                     error,
                 });
             }
@@ -96,15 +99,19 @@ class ProductController {
             const updatedData = req.body;
             try {
                 const product = yield productServices_1.services.updateProductById(productId, updatedData);
+                if (!product) {
+                    return res.status(404).json({ message: "Product not updated" });
+                }
                 return (0, successResponse_1.successResponse)(res, {
                     message: "Product updated successfully",
                     data: product,
                 });
             }
             catch (error) {
+                const err = error;
                 res.status(500).json({
                     success: false,
-                    message: error.message,
+                    message: err.message,
                     error,
                 });
             }
@@ -116,13 +123,14 @@ class ProductController {
                 yield productServices_1.services.deleteProductById(productId);
                 return (0, successResponse_1.successResponse)(res, {
                     message: "Product deleted successfully",
-                    data: null,
+                    data: "null",
                 });
             }
             catch (error) {
+                const err = error;
                 res.status(500).json({
                     success: false,
-                    message: error.message,
+                    message: err.message,
                     error,
                 });
             }

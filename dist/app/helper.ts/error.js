@@ -1,13 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleError = void 0;
-const handleError = (err, res) => {
+const handleError = (err, req, res, next) => {
     let message;
     if (err instanceof Error) {
         message = err.message;
-    }
-    else if (err && typeof err === "object" && "message" in err) {
-        message = String(err.message);
     }
     else if (typeof err === "string") {
         message = err;

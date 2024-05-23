@@ -60,9 +60,10 @@ class OrderController {
                 }
             }
             catch (error) {
+                const err = error;
                 return res.status(500).json({
                     success: false,
-                    error: error.message,
+                    error: err.message,
                 });
             }
         });
@@ -82,9 +83,10 @@ class OrderController {
                 });
             }
             catch (error) {
+                const err = error;
                 return res.status(500).json({
                     success: false,
-                    error: error.message,
+                    error: err.message,
                 });
             }
         });
